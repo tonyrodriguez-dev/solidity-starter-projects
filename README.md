@@ -1,15 +1,25 @@
 # Solidity Starter Projects
 
-Two introductory smart contracts built while studying Solidity in José Cruz's
-Blockchain Accelerator. These exercises cover persistent state, modifiers,
-events, integer arithmetic, and ERC-20 inheritance.
+A growing collection of introductory Solidity exercises from José Cruz's
+Blockchain Accelerator. The projects cover state, modifiers, events,
+ERC-20 inheritance, contract interfaces and caller identity.
 
 | Contract | What it demonstrates |
 | --- | --- |
 | [Calculadora.sol](Calculadora.sol) | Addition and subtraction, events, a persistent accumulator, and a modifier that restricts a function argument. |
 | [CryptoReal.sol](CryptoReal.sol) | A token built on OpenZeppelin ERC-20 that mints 1,000 tokens to the deployer in its constructor. |
+| [Sender](msg-sender) | Stores the deploy-time caller and distinguishes a saved owner from the current caller. |
+| [Connected contracts](connected-contracts) | `Sumador`, `Resultado` and `IResultado`, with cross-contract state updates and a documented `tx.origin` authorization vulnerability. |
+
+The connected-contract exercise includes a caller-identity comparison, a sequence
+diagram, deployment steps and security observations. It deliberately preserves
+the course's `tx.origin` check for local study.
 
 ## Try them in Remix
+
+For **Calculadora** and **CryptoReal**, follow the steps below. The new exercises
+have their own guides for [Sender](msg-sender#try-it-in-remix) and
+[connected contracts](connected-contracts#reproduce-in-remix).
 
 1. Open [Remix](https://remix.ethereum.org/) and add the two Solidity files.
 2. Select compiler **0.8.24**. Compile the contract you want to try.
@@ -30,5 +40,9 @@ events, integer arithmetic, and ERC-20 inheritance.
   The contract's function and event names follow the course files.
 - The token pins OpenZeppelin Contracts to version 5.0.2 for the Remix exercise.
 
+- `Sender` and the connected-contract Solidity files are preserved as supplied.
+  Their README files add explanations, local reproduction steps and security observations.
+
 The Solidity source files declare [LGPL-3.0-only](LICENSE). See [COPYING](COPYING)
 for the GNU GPL text referenced by the LGPL.
+

@@ -2,7 +2,7 @@
 
 A growing collection of introductory Solidity exercises from José Cruz's
 Blockchain Accelerator. The projects cover state, modifiers, events,
-ERC-20 inheritance, contract interfaces and caller identity.
+ERC-20 inheritance, contract interfaces, caller identity, access checks and native ETH transfers.
 
 | Contract | What it demonstrates |
 | --- | --- |
@@ -10,6 +10,8 @@ ERC-20 inheritance, contract interfaces and caller identity.
 | [CryptoReal.sol](CryptoReal.sol) | A token built on OpenZeppelin ERC-20 that mints 1,000 tokens to the deployer in its constructor. |
 | [Sender](msg-sender) | Stores the deploy-time caller and distinguishes a saved owner from the current caller. |
 | [Connected contracts](connected-contracts) | `Sumador`, `Resultado` and `IResultado`, with cross-contract state updates and a documented `tx.origin` authorization vulnerability. |
+| [Access checks](access-checks) | `RequireTest` compares a plain revert, a `require` message and a custom error carrying the caller's address. |
+| [Receiving and withdrawing ETH](eth-transfers) | Two versions illustrate `payable` deposits, withdrawals via `call`, failure handling and an unrestricted withdrawal in a local exercise. |
 
 The connected-contract exercise includes a caller-identity comparison, a sequence
 diagram, deployment steps and security observations. It deliberately preserves
@@ -17,9 +19,7 @@ the course's `tx.origin` check for local study.
 
 ## Try them in Remix
 
-For **Calculadora** and **CryptoReal**, follow the steps below. The new exercises
-have their own guides for [Sender](msg-sender#try-it-in-remix) and
-[connected contracts](connected-contracts#reproduce-in-remix).
+For **Calculadora** and **CryptoReal**, follow the steps below. For the other exercises, see the guides for [Sender](msg-sender#try-it-in-remix), [connected contracts](connected-contracts#reproduce-in-remix), [access checks](access-checks#try-it-in-remix) and [ETH transfers](eth-transfers#try-it-in-remix).
 
 1. Open [Remix](https://remix.ethereum.org/) and add the two Solidity files.
 2. Select compiler **0.8.24**. Compile the contract you want to try.
@@ -40,8 +40,7 @@ have their own guides for [Sender](msg-sender#try-it-in-remix) and
   The contract's function and event names follow the course files.
 - The token pins OpenZeppelin Contracts to version 5.0.2 for the Remix exercise.
 
-- `Sender` and the connected-contract Solidity files are preserved as supplied.
-  Their README files add explanations, local reproduction steps and security observations.
+- The caller identity, access check and ETH transfer exercises preserve the supplied Solidity files. Their guides include local reproduction steps, expected results and security observations.
 
 The Solidity source files declare [LGPL-3.0-only](LICENSE). See [COPYING](COPYING)
 for the GNU GPL text referenced by the LGPL.

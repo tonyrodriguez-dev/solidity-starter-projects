@@ -1,13 +1,13 @@
 # Solidity Starter Projects
 
 A growing collection of introductory Solidity exercises from José Cruz's
-Blockchain Accelerator. The projects cover state, modifiers, events,
+Blockchain Accelerator, plus [my own projects](my-projects) built on top of them. The projects cover state, modifiers, events,
 ERC-20 inheritance, contract interfaces, caller identity, access checks and native ETH transfers.
 
 | Contract | What it demonstrates |
 | --- | --- |
-| [Calculadora.sol](Calculadora.sol) | Addition and subtraction, events, a persistent accumulator, and a modifier that restricts a function argument. |
-| [CryptoReal.sol](CryptoReal.sol) | A token built on OpenZeppelin ERC-20 that mints 1,000 tokens to the deployer in its constructor. |
+| [Calculadora.sol](basics/Calculadora.sol) | Addition and subtraction, events, a persistent accumulator, and a modifier that restricts a function argument. |
+| [CryptoReal.sol](tokens/CryptoReal.sol) | A token built on OpenZeppelin ERC-20 that mints 1,000 tokens to the deployer in its constructor. |
 | [Sender](msg-sender) | Stores the deploy-time caller and distinguishes a saved owner from the current caller. |
 | [Connected contracts](connected-contracts) | `Sumador`, `Resultado` and `IResultado`, with cross-contract state updates and a documented `tx.origin` authorization vulnerability. |
 | [Access checks](access-checks) | `RequireTest` compares a plain revert, a `require` message and a custom error carrying the caller's address. |
@@ -21,7 +21,8 @@ the course's `tx.origin` check for local study.
 
 | Path | What you'll find |
 | --- | --- |
-| [Calculadora.sol](Calculadora.sol) and [CryptoReal.sol](CryptoReal.sol) | Standalone contracts ready to open in Remix. |
+| [basics/](basics) and [tokens/](tokens) | Standalone contracts ready to open in Remix: `Calculadora` and `CryptoReal`. |
+| [my-projects/](my-projects) | Contracts I wrote myself: lives counter, vault, piggy bank and a per-customer bank. |
 | [msg-sender/](msg-sender) and [connected-contracts/](connected-contracts) | Caller identity and cross-contract calls, with source and walkthroughs. |
 | [access-checks/](access-checks) | An administrator check implemented three ways, with expected failure details. |
 | [eth-transfers/](eth-transfers) | Two ETH transfer exercises, including a two-account withdrawal case. |
@@ -66,7 +67,7 @@ For **Calculadora** and **CryptoReal**, follow the steps below. For the other ex
 ## Security observations
 
 - The connected-contract example shows how an authorization check based on `tx.origin` can accept a call forwarded by another contract when the administrator initiated the transaction.
-- The second ETH transfer example checks whether the transfer succeeded. Any caller can still withdraw from the shared balance because the contract stores no balances per depositor.
+- The second ETH transfer example checks whether the transfer succeeded. Any caller can still withdraw from the shared balance because the contract stores no balances per depositor. [`my-projects/bank`](my-projects/bank) is my per-customer version.
 
 ## Implementation notes
 
@@ -77,6 +78,6 @@ For **Calculadora** and **CryptoReal**, follow the steps below. For the other ex
 
 ## License
 
-The Solidity source files declare [LGPL-3.0-only](LICENSE). See [COPYING](COPYING)
+The course Solidity files declare [LGPL-3.0-only](LICENSE). My own files in [my-projects](my-projects) are MIT. See [COPYING](COPYING)
 for the GNU GPL text referenced by the LGPL.
 

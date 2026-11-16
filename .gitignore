@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+
+# Tooling
+node_modules/
+out/
+cache/
+broadcast/
+artifacts/

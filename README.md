@@ -17,6 +17,26 @@ The connected-contract exercise includes a caller-identity comparison, a sequenc
 diagram, deployment steps and security observations. It deliberately preserves
 the course's `tx.origin` check for local study.
 
+## Repository layout
+
+| Path | What you'll find |
+| --- | --- |
+| [Calculadora.sol](Calculadora.sol) and [CryptoReal.sol](CryptoReal.sol) | Standalone contracts ready to open in Remix. |
+| [msg-sender/](msg-sender) and [connected-contracts/](connected-contracts) | Caller identity and cross-contract calls, with source and walkthroughs. |
+| [access-checks/](access-checks) | An administrator check implemented three ways, with expected failure details. |
+| [eth-transfers/](eth-transfers) | Two ETH transfer exercises, including a two-account withdrawal case. |
+
+## How the contracts work
+
+**Calculadora** starts with a stored accumulator of 10. `addition` and `substraction` calculate and emit a result. `multiplier` updates the accumulator. `multiplier2` applies the same update after a modifier checks that the argument is 10.
+
+**CryptoReal** passes the token name and symbol to OpenZeppelin's ERC-20 constructor. It then mints `1000 * 1e18` base units to the deploying address.
+
+| Entry point | Inputs | Observable result |
+| --- | --- | --- |
+| `Calculadora.multiplier2` | A multiplier of 10 | The stored accumulator is multiplied by 10. |
+| `CryptoReal.constructor` | Token name and symbol | The deployer receives 1,000 CRT using 18 decimals. |
+
 ## Try them in Remix
 
 For **Calculadora** and **CryptoReal**, follow the steps below. For the other exercises, see the guides for [Sender](msg-sender#try-it-in-remix), [connected contracts](connected-contracts#reproduce-in-remix), [access checks](access-checks#try-it-in-remix) and [ETH transfers](eth-transfers#try-it-in-remix).
@@ -34,13 +54,28 @@ For **Calculadora** and **CryptoReal**, follow the steps below. For the other ex
 | `Calculadora.multiplier2(11)` | Reverts. The modifier accepts only 10. |
 | `CryptoReal.balanceOf(deployer)` | Returns 1,000 CRT expressed in base units: `1000000000000000000000`. |
 
-## Changes for this portfolio
+## Manual test cases
+
+| Exercise | What to reproduce | Expected result |
+| --- | --- | --- |
+| [Caller identity](msg-sender#try-it-in-remix) | Deploy from account A and query the owner from account B. | The stored owner remains A. |
+| [Connected contracts](connected-contracts#reproduce-in-remix) | Call `Sumador.addition(5, 5)` and read the value from `Resultado`. | The receiving contract stores 10. |
+| [Access checks](access-checks#try-it-in-remix) | Run the same check as the administrator and as another account. | The administrator passes. The other account sees a revert. |
+| [ETH transfers](eth-transfers#try-it-in-remix) | Deposit into version 2 and withdraw from a second test account. | The withdrawal succeeds, demonstrating unrestricted access to the shared balance. |
+
+## Security observations
+
+- The connected-contract example shows how an authorization check based on `tx.origin` can accept a call forwarded by another contract when the administrator initiated the transaction.
+- The second ETH transfer example checks whether the transfer succeeded. Any caller can still withdraw from the shared balance because the contract stores no balances per depositor.
+
+## Implementation notes
 
 - The calculator's addition and subtraction events log the computed result.
   The contract's function and event names follow the course files.
 - The token pins OpenZeppelin Contracts to version 5.0.2 for the Remix exercise.
-
 - The caller identity, access check and ETH transfer exercises preserve the supplied Solidity files. Their guides include local reproduction steps, expected results and security observations.
+
+## License
 
 The Solidity source files declare [LGPL-3.0-only](LICENSE). See [COPYING](COPYING)
 for the GNU GPL text referenced by the LGPL.
